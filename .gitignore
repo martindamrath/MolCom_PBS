@@ -1,0 +1,9 @@
+test
+test.csv
+build/test.o
+build/Debug/outDebug
+build/Debug/test.o
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
