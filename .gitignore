@@ -7,3 +7,7 @@ build/Debug/test.o
 .vscode/launch.json
 .vscode/settings.json
 .vscode/tasks.json
+example_OOK.csv
+example_CIR.csv
+test.exe
+test.cpp

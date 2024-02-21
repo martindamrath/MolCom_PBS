@@ -20,9 +20,9 @@ namespace molcompbs
         bool transparent;               // receiver type: transparent or fully absorbing receiver
         // functions
         template <typename T>
-        void setVar(T &var, const T in); // set private variable
+        void setVar(T &var, const T in) { var = in; }; // set private variable
         template <typename T>
-        T getVar(const T &var) const;    // get private variable
+        T getVar(const T &var) const { return var; };  // get private variable
         void update();                   // update receiver limits
 
     public:
@@ -101,10 +101,19 @@ namespace molcompbs
         template <typename T>
         void release(std::vector<T> &par, int N)          // point source impulse release
         {
-          T particle(getVar(x), getVar(y), getVar(z));
-
-          for (int n=0; n<N; n++)
+          for (int n=0; n<N; n++) {
+            T particle(getVar(x), getVar(y), getVar(z));
             par.emplace_back(particle);
+          }
+        };
+        template <typename T>
+        void release(std::vector<T> &par, int N, double stddev)          // point source impulse release
+        {
+          for (int n=0; n<N; n++) {
+            T particle(getVar(x), getVar(y), getVar(z));
+            particle.step(stddev);
+            par.emplace_back(particle);
+          }
         };
         //TODO volumne source
         //TODO waveform release

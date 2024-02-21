@@ -4,14 +4,30 @@
 using namespace molcompbs;
 
 // constructor and destructor
-particle::particle() : x(0), y(0), z(0) { std::random_device rd; gen.seed(rd()); }
-particle::particle(double x0, double y0, double z0) : x(x0), y(y0), z(z0) { std::random_device rd; gen.seed(rd()); }
-particle::particle(const particle &par) : x(par.x), y(par.y), z(par.z) { std::random_device rd; gen.seed(rd()); }
+particle::particle() : x(0), y(0), z(0) { setRandomSeed(); }
+particle::particle(double x0, double y0, double z0) : x(x0), y(y0), z(z0) { setRandomSeed(); }
+particle::particle(const particle &par) : x(par.x), y(par.y), z(par.z), gen(par.gen), distribution(par.distribution) {}
 particle::~particle() { }
 
 // functions
 void particle::setVar(double &var, double in) { var = in; }
 double particle::getVar(double &var) { return var; }
+void particle::setRandomSeed() { 
+  std::random_device rd; 
+  # pragma omp critical
+  {
+  if (rd.entropy() > 0.)
+    gen.seed(rd()); 
+  else {
+    auto ref = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    while(ref == seed){
+      seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    }
+    gen.seed(static_cast<unsigned>(seed));
+  }
+  }
+};
 
 // particle position
 void particle::setX(double xin) { particle::setVar(x, xin); }

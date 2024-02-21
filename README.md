@@ -10,6 +10,12 @@ Researcher can use this simulator for their work, written in C++ it will be fast
 ### How to get started with MolCom_PBS?
 Download MolCom_PBS source code, compile it, modify or run one of the examples or create your own simulation
 
+Compile with following command (change example_CIR.cpp to the file you want to run):
+g++ -o runfilename -O3 example_CIR.cpp src/*.cpp -fopenmp
+
+Run with following command
+./runfilename
+
 ### Where to get help for MolCom_PBS?
 Please submit any issues on github https://github.com/martindamrath/MolCom_PBS
 

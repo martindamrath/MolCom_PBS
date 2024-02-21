@@ -9,10 +9,6 @@ transceiver::transceiver(double xin, double yin, double zin, double rin, bool tr
 transceiver::~transceiver() { }
 
 // functions
-template <typename T>
-void transceiver::setVar(T &var, T in) { var = in; }
-template <typename T>
-T transceiver::getVar(const T &var) const { return var; }
 void transceiver::update() {
   transceiver::setVar(xm, transceiver::getVar(x) - transceiver::getVar(r));
   transceiver::setVar(xp, transceiver::getVar(x) + transceiver::getVar(r));

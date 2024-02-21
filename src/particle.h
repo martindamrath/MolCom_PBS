@@ -3,6 +3,8 @@
 
 #include <random>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 namespace molcompbs
 {
@@ -16,6 +18,7 @@ namespace molcompbs
       // functions
       void setVar(double &var, double in);  // set private variable
       double getVar(double &var);           // get private variable
+      void setRandomSeed();                 // set random seed
 
     public:
       // constructor and destructor
